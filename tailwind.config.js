@@ -13,13 +13,17 @@ export default {
         brand: {
           teal: '#009986',
           tealLight: '#e6f5f3',
+          tealDark: '#008070',
           dot: '#F76D4D',
           orange: '#F76D4D',
           bg: '#eaf4f5',
           active: '#efffff',
           text: '#334155',
           dark: '#1e293b',
-          gray: '#64748b'
+          gray: '#64748b',
+          red: '#ef4444',
+          redBg: '#fef2f2',
+          redBorder: '#fee2e2'
         }
       },
       boxShadow: {
@@ -40,3 +44,4 @@ export default {
   plugins: [],
 
 }
+
