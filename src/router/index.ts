@@ -1,21 +1,34 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Signup from '@/views/supplier/SupplierSignup.vue'
-// Import Login later
+import { createRouter, createWebHistory } from 'vue-router';
+import { authService } from '@/services/authService';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      redirect: '/signup'
+      path: '/supplier/signup',
+      name: 'supplier-signup',
+      component: () => import('@/views/supplier/SupplierSignup.vue'),
+      meta: { 
+        requiresGuest: true, // Only accessible when NOT logged in
+      },
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: Signup
-    }
-  ]
-})
+      path: '/supplier/confirmation',
+      name: 'supplier-confirmation',
+      component: () => import('@/views/supplier/SignupConfirmation.vue'),
+      meta: { 
+        requiresGuest: true,
+      },
+    },
+    {
+      path: '/email-verified',
+      name: 'email-verified',
+      component: () => import('@/views/EmailVerified.vue'),
+      meta: {
+        requiresAuth: true, // Must be logged in (Supabase auto-logs in after email verification)
+    },
+  ],
+});
 
 // ==========================================
 // NAVIGATION GUARDS
@@ -136,4 +149,5 @@ function getDashboardRoute(role?: string) {
 }
 
 export default router;
+
 
