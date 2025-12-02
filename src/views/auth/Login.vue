@@ -195,4 +195,5 @@ const handleLogin = async () => {
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
 </style>
