@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Signup from '@/views/auth/SupplierSignup.vue'
+import Signup from '@/views/supplier/SupplierSignup.vue'
 // Import Login later
 
 const router = createRouter({
@@ -136,3 +136,4 @@ function getDashboardRoute(role?: string) {
 }
 
 export default router;
+
