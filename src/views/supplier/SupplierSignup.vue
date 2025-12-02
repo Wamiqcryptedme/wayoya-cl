@@ -856,7 +856,7 @@ data.details = {
 rental_type: formData.rentalType,
 vehicle_count: formData.vehicleCount,
 security_deposit_required: formData.securityDeposit,
-open_hours: `${formData.openTime} - ${formData.closeTime}`
+open_hours: `${formData.openTime} - ${formData.closeTime}`,
 open_days: formData.operationalDays,
 };
 }
@@ -879,3 +879,4 @@ console.error('❌ Failed to load dropdown data:', error);
 }
 });
 </script>
+
