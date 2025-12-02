@@ -792,22 +792,24 @@ serve_international: formData.serveInternational,
 };
 data.attributeIds = [...formData.specialityIds];
 } else if (formData.category === 'Activity') {
-data.details = {
-activity_type_id: formData.activityTypeId,
-open_hours: ${formData.openTime} - ${formData.closeTime},
-open_days: formData.operationalDays,
-};
-if (formData.activityTypeId) {
-data.attributeIds.push(formData.activityTypeId);
-}
+  data.details = {
+    activity_type_id: formData.activityTypeId,
+    // FIXED: Added backticks around the string
+    open_hours: `${formData.openTime} - ${formData.closeTime}`, 
+    open_days: formData.operationalDays,
+  };
+  if (formData.activityTypeId) {
+    data.attributeIds.push(formData.activityTypeId);
+  }
 } else if (formData.category === 'Rental') {
-data.details = {
-rental_type: formData.rentalType,
-vehicle_count: formData.vehicleCount,
-security_deposit_required: formData.securityDeposit,
-open_hours: ${formData.openTime} - ${formData.closeTime},
-open_days: formData.operationalDays,
-};
+  data.details = {
+    rental_type: formData.rentalType,
+    vehicle_count: formData.vehicleCount,
+    security_deposit_required: formData.securityDeposit,
+    // FIXED: Added backticks around the string
+    open_hours: `${formData.openTime} - ${formData.closeTime}`,
+    open_days: formData.operationalDays,
+  };
 }
 return data;
 };
@@ -880,4 +882,5 @@ console.error('Failed to load dropdown data:', error);
 .animate-shake {
   animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
+
 </style>
