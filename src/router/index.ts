@@ -27,6 +27,7 @@ const router = createRouter({
       meta: {
         requiresAuth: true, // Must be logged in (Supabase auto-logs in after email verification)
     },
+  },
   ],
 });
 
@@ -149,5 +150,6 @@ function getDashboardRoute(role?: string) {
 }
 
 export default router;
+
 
 
