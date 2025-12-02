@@ -142,9 +142,7 @@
 <label class="block text-sm font-semibold text-brand-dark mb-2">National tax number (NTN)</label>
 <input type="text" v-model="formData.ntn" class="w-full text-sm px-4 py-3 border-[1.5px] border-gray-200 rounded-xl outline-none focus:border-brand-teal">
 </div>
-</div><button @click="handleNextStep" class="w-full py-3 bg-brand-teal hover:bg-brand-tealDark text-white font-semibold rounded-xl transition-colors">
-        Next
-      </button>
+</div>
     </div>
 
     <!-- STEP 4: ABOUT SERVICES -->
@@ -355,10 +353,6 @@
           <input type="time" v-model="formData.closeTime" class="w-full px-4 py-3 text-sm border-[1.5px] border-gray-200 rounded-xl focus:border-brand-teal bg-white custom-select outline-none">
         </div>
       </div>
-
-      <button @click="handleNextStep" class="w-full py-3 bg-brand-teal hover:bg-brand-tealDark text-white font-semibold rounded-xl transition-colors">
-        Next
-      </button>
     </div>
 
     <!-- STEP 5: DOCUMENTS -->
@@ -884,3 +878,4 @@ console.error('Failed to load dropdown data:', error);
 }
 
 </style>
+
