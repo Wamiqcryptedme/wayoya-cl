@@ -1,168 +1,21 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import { authService } from '@/services/authService';
+import { createRouter, createWebHistory } from 'vue-router'
+import Signup from '@/views/auth/SupplierSignup.vue'
+// Import Login later
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // ==========================================
-    // PUBLIC ROUTES
-    // ==========================================
     {
       path: '/',
-      name: 'home',
-      component: () => import('@/views/Home.vue'),
-    },
-
-    // ==========================================
-    // SUPPLIER ONBOARDING ROUTES
-    // ==========================================
-    {
-      path: '/supplier/signup',
-      name: 'supplier-signup',
-      component: () => import('@/views/supplier/SupplierSignup.vue'),
-      meta: { 
-        requiresGuest: true, // Only accessible when NOT logged in
-      },
+      redirect: '/signup'
     },
     {
-      path: '/supplier/confirmation',
-      name: 'supplier-confirmation',
-      component: () => import('@/views/supplier/SignupConfirmation.vue'),
-      meta: { 
-        requiresGuest: true,
-      },
-    },
-    {
-      path: '/email-verified',
-      name: 'email-verified',
-      component: () => import('@/views/EmailVerified.vue'),
-      meta: {
-        requiresAuth: true, // Must be logged in (Supabase auto-logs in after email verification)
-      },
-    },
-
-    // ==========================================
-    // SUPPLIER DASHBOARD (After Approval)
-    // ==========================================
-    {
-      path: '/supplier/dashboard',
-      name: 'supplier-dashboard',
-      component: () => import('@/views/supplier/Dashboard.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'supplier',
-        requiresApproval: true, // Check if supplier status is 'approved'
-      },
-    },
-    {
-      path: '/supplier/listings',
-      name: 'supplier-listings',
-      component: () => import('@/views/supplier/Listings.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'supplier',
-        requiresApproval: true,
-      },
-    },
-    {
-      path: '/supplier/bookings',
-      name: 'supplier-bookings',
-      component: () => import('@/views/supplier/Bookings.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'supplier',
-        requiresApproval: true,
-      },
-    },
-    {
-      path: '/supplier/profile',
-      name: 'supplier-profile',
-      component: () => import('@/views/supplier/Profile.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'supplier',
-      },
-    },
-
-    // ==========================================
-    // SUPPLIER PENDING STATE (After Signup, Before Approval)
-    // ==========================================
-    {
-      path: '/supplier/pending',
-      name: 'supplier-pending',
-      component: () => import('@/views/supplier/PendingApproval.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'supplier',
-        isPendingPage: true, // Don't redirect from this page
-      },
-    },
-
-    // ==========================================
-    // ADMIN ROUTES
-    // ==========================================
-    {
-      path: '/admin/dashboard',
-      name: 'admin-dashboard',
-      component: () => import('@/views/admin/Dashboard.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'admin',
-      },
-    },
-    {
-      path: '/admin/suppliers',
-      name: 'admin-suppliers',
-      component: () => import('@/views/admin/Suppliers.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'admin',
-      },
-    },
-    {
-      path: '/admin/listings',
-      name: 'admin-listings',
-      component: () => import('@/views/admin/Listings.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'admin',
-      },
-    },
-
-    // ==========================================
-    // CUSTOMER ROUTES
-    // ==========================================
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/auth/Login.vue'),
-      meta: { requiresGuest: true },
-    },
-    {
-      path: '/customer/bookings',
-      name: 'customer-bookings',
-      component: () => import('@/views/customer/Bookings.vue'),
-      meta: { 
-        requiresAuth: true,
-        requiresRole: 'customer',
-      },
-    },
-
-    // ==========================================
-    // ERROR ROUTES
-    // ==========================================
-    {
-      path: '/unauthorized',
-      name: 'unauthorized',
-      component: () => import('@/views/errors/Unauthorized.vue'),
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: () => import('@/views/errors/NotFound.vue'),
-    },
-  ],
-});
+      path: '/signup',
+      name: 'signup',
+      component: Signup
+    }
+  ]
+})
 
 // ==========================================
 // NAVIGATION GUARDS
