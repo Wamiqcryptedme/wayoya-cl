@@ -4,6 +4,7 @@ export const authService = {
   /**
    * Sign up a new supplier with email/password
    * Triggers Supabase email verification
+   * Returns the created user object
    */
   async signUp(email: string, password: string, metadata: any) {
     const { data, error } = await supabase.auth.signUp({
@@ -19,6 +20,8 @@ export const authService = {
     });
 
     if (error) throw error;
+    
+    // Return the full data object (includes user and session)
     return data;
   },
 
