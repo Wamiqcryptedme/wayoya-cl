@@ -125,32 +125,19 @@ onMounted(async () => {
     console.log('Supplier record created successfully');
 
     // Step 4: Send "Account Created" email
-    // Step 4: Send "Account Created" email
-console.log('📧 Sending account created email...');
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    console.log('📧 Sending account created email...');
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const emailResponse = await fetch(`${supabaseUrl}/functions/v1/send-supplier-email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ supplierId: session.user.id }),
+    });
 
-try {
-  const emailResponse = await fetch(`${supabaseUrl}/functions/v1/send-supplier-email`, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-    },
-    body: JSON.stringify({ supplierId: session.user.id }),
-  });
-
-  const emailResult = await emailResponse.json();
-  
-  if (!emailResponse.ok) {
-    console.error('❌ Email API error:', emailResult);
-    throw new Error(emailResult.error || 'Failed to send email');
-  }
-
-  console.log('✅ Account created email sent:', emailResult);
-} catch (emailError: any) {
-  console.error('❌ Email sending failed:', emailError);
-  // Don't throw - continue with verification even if email fails
-}
+    if (!emailResponse.ok) {
+      console.warn('Failed to send email, but continuing...');
+    } else {
+      console.log('Account created email sent');
+    }
 
     // Step 5: Delete pending data
     await supabase
