@@ -47,7 +47,7 @@
           </div>
 
           <!-- Pending Message (Yellow/Orange) -->
-<div v-if="pendingMessage" class="p-3 bg-yellow-50 border border-yellow-100 rounded-xl text-yellow-700 text-sm flex items-center gap-2">
+<div v-if="pendingMessage" class="p-3 bg-orange-100 rounded-xl text-orange-700 text-sm flex items-center gap-2">
   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
   </svg>
@@ -176,10 +176,6 @@ const handleLogin = async () => {
   } else if (error.message?.includes('Email not confirmed')) {
     errorMessage.value = 'Please verify your email first. Check your inbox for the verification link.';
   } else if (error.message?.includes('No match for')) {
-    // Router error - ignore and show generic message
-    errorMessage.value = 'Unable to complete login. Please try again.';
-  } else {
-    errorMessage.value = error.message || 'Login failed. Please try again.';
   }
 } finally {
   isLoading.value = false;
@@ -195,4 +191,5 @@ const handleLogin = async () => {
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
 </style>
