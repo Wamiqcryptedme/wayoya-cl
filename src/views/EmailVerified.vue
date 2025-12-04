@@ -125,27 +125,39 @@ onMounted(async () => {
     console.log('Supplier record created successfully');
 
     // Step 4: Send "Account Created" email
-    console.log('📧 Sending account created email...');
+    console.log('Sending account created email...');
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    
     const emailResponse = await fetch(`${supabaseUrl}/functions/v1/send-supplier-email`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseAnonKey}`,
+      },
       body: JSON.stringify({ supplierId: session.user.id }),
     });
 
     if (!emailResponse.ok) {
-      console.warn('Failed to send email, but continuing...');
+      const errorText = await emailResponse.text();
+      console.warn('Failed to send email:', errorText);
+      // Don't throw error - we don't want to block verification just because email failed
     } else {
-      console.log('Account created email sent');
+      console.log('Account created email sent successfully');
     }
 
     // Step 5: Delete pending data
-    await supabase
+    const { error: deleteError } = await supabase
       .from('pending_onboarding')
       .delete()
       .eq('user_id', session.user.id);
 
-    console.log('Cleaned up pending onboarding data');
+    if (deleteError) {
+      console.warn('Failed to delete pending data:', deleteError);
+      // Don't throw - this is just cleanup
+    } else {
+      console.log('Cleaned up pending onboarding data');
+    }
 
     // Step 6: Success!
     isProcessing.value = false;
